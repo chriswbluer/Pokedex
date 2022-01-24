@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LandingPageController {
 
-    @RequestMapping(value = "/landingpage", method = RequestMethod.GET)
+	@RequestMapping(value = "/landingpage", method = RequestMethod.GET)
 	public String getLoginPage() {
 		return "LandingPage";
 	}
-    
+
 }

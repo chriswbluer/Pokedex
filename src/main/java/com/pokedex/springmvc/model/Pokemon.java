@@ -3,10 +3,10 @@ package com.pokedex.springmvc.model;
 import java.util.Objects;
 
 public class Pokemon {
-    
-	private long id;
-	
-	private String name;
+
+    private long id;
+
+    private String name;
 
     private Integer attack;
 
@@ -83,7 +83,8 @@ public class Pokemon {
             return false;
         }
         Pokemon pokemon = (Pokemon) o;
-        return id == pokemon.id && Objects.equals(name, pokemon.name) && Objects.equals(attack, pokemon.attack) && Objects.equals(defense, pokemon.defense);
+        return id == pokemon.id && Objects.equals(name, pokemon.name) && Objects.equals(attack, pokemon.attack)
+                && Objects.equals(defense, pokemon.defense);
     }
 
     @Override
@@ -94,12 +95,11 @@ public class Pokemon {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", name='" + getName() + "'" +
-            ", attack='" + getAttack() + "'" +
-            ", defense='" + getDefense() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", name='" + getName() + "'" +
+                ", attack='" + getAttack() + "'" +
+                ", defense='" + getDefense() + "'" +
+                "}";
     }
-
 
 }

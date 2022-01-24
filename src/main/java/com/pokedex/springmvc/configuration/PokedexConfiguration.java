@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.pokedex.springmvc")
 public class PokedexConfiguration extends WebMvcConfigurerAdapter {
-	
+
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

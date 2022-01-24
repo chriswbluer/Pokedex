@@ -3,18 +3,18 @@ package com.pokedex.springmvc.model;
 public class User {
 
 	private long id;
-	
+
 	private String username;
-	
+
 	private String address;
-	
+
 	private String email;
-	
-	public User(){
-		id=0;
+
+	public User() {
+		id = 0;
 	}
-	
-	public User(long id, String username, String address, String email){
+
+	public User(long id, String username, String address, String email) {
 		this.id = id;
 		this.username = username;
 		this.address = address;
@@ -80,7 +80,5 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", address=" + address
 				+ ", email=" + email + "]";
 	}
-	
 
-	
 }

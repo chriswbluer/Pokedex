@@ -3,6 +3,7 @@ package com.pokedex.springmvc.model;
 public class Login {
 
 	private String userName;
+
 	private String password;
 
 	public String getUserName() {
