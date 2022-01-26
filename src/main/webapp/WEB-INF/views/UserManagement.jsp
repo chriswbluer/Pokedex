@@ -124,9 +124,9 @@
                                     <td><span ng-bind="u.email"></span></td>
                                     <td>
                                         <button type="button" ng-click="userController.edit(u.id)"
-                                            class="btn btn-success custom-width">Edit</button> <button type="button"
+                                            class="btn btn-success custom-width" id="editButton{{u.id}}">Edit</button> <button type="button"
                                             ng-click="userController.remove(u.id)"
-                                            class="btn btn-danger custom-width">Remove</button>
+                                            class="btn btn-danger custom-width" id="removeButton{{u.id}}">Remove</button>
                                     </td>
                                 </tr>
                             </tbody>
