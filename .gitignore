@@ -1,0 +1,11 @@
+.settings
+
+target/
+
+.project
+
+.classpath
+
+.vscode/
+
+src/main/java/sunrise/pokedex/springmvc/resources/application.properties
