@@ -1,8 +1,8 @@
-package com.pokedex.springmvc.model;
+package sunrise.pokedex.springmvc.model;
 
 public class User {
 
-	private long id;
+	private Long id;
 
 	private String username;
 
@@ -11,21 +11,20 @@ public class User {
 	private String email;
 
 	public User() {
-		id = 0;
 	}
 
-	public User(long id, String username, String address, String email) {
+	public User(Long id, String username, String address, String email) {
 		this.id = id;
 		this.username = username;
 		this.address = address;
 		this.email = email;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -53,7 +52,6 @@ public class User {
 		this.email = email;
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -61,7 +59,6 @@ public class User {
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -77,8 +74,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", address=" + address
-				+ ", email=" + email + "]";
+		return "User {id=" + id + ", username=" + username + ", address=" + address
+				+ ", email=" + email + "}";
 	}
 
 }

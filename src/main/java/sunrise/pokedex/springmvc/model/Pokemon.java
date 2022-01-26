@@ -1,10 +1,10 @@
-package com.pokedex.springmvc.model;
+package sunrise.pokedex.springmvc.model;
 
 import java.util.Objects;
 
 public class Pokemon {
 
-    private long id;
+    private Long id;
 
     private String name;
 
@@ -13,21 +13,20 @@ public class Pokemon {
     private Integer defense;
 
     public Pokemon() {
-        id = 0;
     }
 
-    public Pokemon(long id, String name, Integer attack, Integer defense) {
+    public Pokemon(Long id, String name, Integer attack, Integer defense) {
         this.id = id;
         this.name = name;
         this.attack = attack;
         this.defense = defense;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,27 +54,6 @@ public class Pokemon {
         this.defense = defense;
     }
 
-    public Pokemon id(long id) {
-        setId(id);
-        return this;
-    }
-
-    public Pokemon name(String name) {
-        setName(name);
-        return this;
-    }
-
-    public Pokemon attack(Integer attack) {
-        setAttack(attack);
-        return this;
-    }
-
-    public Pokemon defense(Integer defense) {
-        setDefense(defense);
-        return this;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == this)
             return true;
@@ -83,11 +61,9 @@ public class Pokemon {
             return false;
         }
         Pokemon pokemon = (Pokemon) o;
-        return id == pokemon.id && Objects.equals(name, pokemon.name) && Objects.equals(attack, pokemon.attack)
-                && Objects.equals(defense, pokemon.defense);
+        return Objects.equals(id, pokemon.id) && Objects.equals(name, pokemon.name) && Objects.equals(attack, pokemon.attack) && Objects.equals(defense, pokemon.defense);
     }
 
-    @Override
     public int hashCode() {
         return Objects.hash(id, name, attack, defense);
     }
@@ -95,11 +71,11 @@ public class Pokemon {
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", attack='" + getAttack() + "'" +
-                ", defense='" + getDefense() + "'" +
-                "}";
+            " id='" + id + "'" +
+            ", name='" + name + "'" +
+            ", attack='" + attack + "'" +
+            ", defense='" + defense + "'" +
+            "}";
     }
 
 }

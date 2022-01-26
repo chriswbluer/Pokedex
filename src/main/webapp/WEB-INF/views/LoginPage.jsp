@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-		<html>
+		<!DOCTYPE html>
+		<html lang="en">
 
 		<head>
 			<meta charset="UTF-8">
@@ -64,23 +65,25 @@
 					border-top-left-radius: 0;
 					border-top-right-radius: 0;
 				}
+
 			</style>
 		</head>
 
 		<body class="text-center">
-			<form:form id="submitForm" class="form-signin" name="submitForm" action="/login" method="POST">
-				<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-				<label for="inputEmail" class="sr-only">Email address</label>
-				<input type="text" name="userName" id="inputEmail" class="form-control" placeholder="Username"
-					required="" autofocus="">
+			<main>
+				<form:form id="loginForm" class="form-signin" name="loginForm" action="/login" method="POST">
+					<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+					<label for="inputEmail" class="sr-only">Email address</label>
+					<input type="text" name="userName" id="userName" class="form-control" placeholder="Username"
+						required="" autofocus="">
 
-				<label for="inputPassword" class="sr-only">Password</label>
-				<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
-					required="">
-				<button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign in</button>
-				<div style="color: red">${error}</div>
-			</form:form>
-
+					<label for="inputPassword" class="sr-only">Password</label>
+					<input type="password" name="password" id="password" class="form-control" placeholder="Password"
+						required="">
+					<button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign in</button>
+					<div style="background-color: white; color: red">${error}</div>
+				</form:form>
+			</main>
 		</body>
 
 		</html>

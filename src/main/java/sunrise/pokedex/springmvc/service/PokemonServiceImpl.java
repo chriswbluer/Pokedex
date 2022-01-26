@@ -1,15 +1,15 @@
-package com.pokedex.springmvc.service;
+package sunrise.pokedex.springmvc.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.pokedex.springmvc.model.Pokemon;
-
 import org.springframework.stereotype.Service;
 
-@Service("pokemonService")
+import sunrise.pokedex.springmvc.model.Pokemon;
+
+@Service
 public class PokemonServiceImpl implements PokemonService {
 
     private static final AtomicLong counter = new AtomicLong();
@@ -42,32 +42,37 @@ public class PokemonServiceImpl implements PokemonService {
 		return null;
 	}
 	
-	public void savePokemon(Pokemon pokemon) {
+	public Pokemon savePokemon(Pokemon pokemon) {
 		pokemon.setId(counter.incrementAndGet());
 		pokemons.add(pokemon);
+		return pokemon;
 	}
 
-	public void updatePokemon(Pokemon pokemon) {
+	public Pokemon updatePokemon(Pokemon pokemon) {
 		int index = pokemons.indexOf(pokemon);
 		pokemons.set(index, pokemon);
+		return pokemon;
 	}
 
-	public void deletePokemonById(long id) {
+	public Long deletePokemonById(long id) {
 		
 		for (Iterator<Pokemon> iterator = pokemons.iterator(); iterator.hasNext(); ) {
 		    Pokemon pokemon = iterator.next();
 		    if (pokemon.getId() == id) {
 		        iterator.remove();
+				return id;
 		    }
 		}
+		return null;
 	}
 
 	public boolean isPokemonExist(Pokemon pokemon) {
 		return findByName(pokemon.getName())!=null;
 	}
 	
-	public void deleteAllPokemons(){
+	public List<Pokemon> deleteAllPokemons(){
 		pokemons.clear();
+		return pokemons;
 	}
 
 	private static List<Pokemon> populateDummyPokemons(){

@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('myApp').controller('UserController', ['$scope', 'UserService', function ($scope, UserService) {
+// TODO: Refactor with John Papas style guide.
+angular.module('myApp').controller('UserController', ['$scope', '$log', 'UserService', function ($scope, $log, UserService) {
     var self = this;
-    self.user = { id: null, username: '', address: '', email: '' };
+    self.user = {};
     self.users = [];
 
     self.submit = submit;
@@ -18,10 +19,10 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             .then(
                 function (d) {
                     self.users = d;
-                    console.log('fetchAllUsers(): self.users ', self.users);
+                    $log.log('fetchAllUsers(): self.users ', self.users);
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    $log.error('Error while fetching Users');
                 }
             );
     }
@@ -31,7 +32,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             .then(
                 fetchAllUsers,
                 function (errResponse) {
-                    console.error('Error while creating User');
+                    $log.error('Error while creating User');
                 }
             );
     }
@@ -41,7 +42,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             .then(
                 fetchAllUsers,
                 function (errResponse) {
-                    console.error('Error while updating User');
+                    $log.error('Error while updating User');
                 }
             );
     }
@@ -51,24 +52,24 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             .then(
                 fetchAllUsers,
                 function (errResponse) {
-                    console.error('Error while deleting User');
+                    $log.error('Error while deleting User');
                 }
             );
     }
 
     function submit() {
         if (self.user.id === null) {
-            console.log('Saving New User', self.user);
+            $log.log('Saving New User', self.user);
             createUser(self.user);
         } else {
             updateUser(self.user, self.user.id);
-            console.log('User updated with id ', self.user.id);
+            $log.log('User updated with id ', self.user.id);
         }
         reset();
     }
 
     function edit(id) {
-        console.log('id to be edited', id);
+        $log.log('id to be edited', id);
         for (var i = 0; i < self.users.length; i++) {
             if (self.users[i].id === id) {
                 self.user = angular.copy(self.users[i]);
@@ -78,7 +79,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
     }
 
     function remove(id) {
-        console.log('id to be deleted', id);
+        $log.log('id to be deleted', id);
         if (self.user.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }

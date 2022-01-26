@@ -1,13 +1,13 @@
-package com.pokedex.springmvc.service;
+package sunrise.pokedex.springmvc.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.pokedex.springmvc.model.User;
-
 import org.springframework.stereotype.Service;
+
+import sunrise.pokedex.springmvc.model.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -42,32 +42,37 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 	
-	public void saveUser(User user) {
+	public User saveUser(User user) {
 		user.setId(counter.incrementAndGet());
 		users.add(user);
+		return user;
 	}
 
-	public void updateUser(User user) {
+	public User updateUser(User user) {
 		int index = users.indexOf(user);
 		users.set(index, user);
+		return user;
 	}
 
-	public void deleteUserById(long id) {
+	public Long deleteUserById(long id) {
 		
 		for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
 		    User user = iterator.next();
 		    if (user.getId() == id) {
 		        iterator.remove();
+				return id;
 		    }
 		}
+		return null;
 	}
 
 	public boolean isUserExist(User user) {
 		return findByName(user.getUsername())!=null;
 	}
 	
-	public void deleteAllUsers(){
+	public List<User> deleteAllUsers(){
 		users.clear();
+		return users;
 	}
 
 	private static List<User> populateDummyUsers(){

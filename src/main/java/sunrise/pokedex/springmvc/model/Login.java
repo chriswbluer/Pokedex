@@ -1,4 +1,4 @@
-package com.pokedex.springmvc.model;
+package sunrise.pokedex.springmvc.model;
 
 public class Login {
 

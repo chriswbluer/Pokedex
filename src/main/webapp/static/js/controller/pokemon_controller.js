@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('myApp').controller('PokemonController', ['$scope', 'PokemonService', function ($scope, PokemonService) {
+// TODO: Refactor with John Papas style guide.
+angular.module('myApp').controller('PokemonController', ['$scope', '$log', 'PokemonService', function ($scope, $log, PokemonService) {
     var self = this;
-    self.pokemon = { id: null, name: '', attack: '', defense: '' };
+    self.pokemon = {};
     self.pokemons = [];
 
     self.submit = submit;
@@ -18,10 +19,10 @@ angular.module('myApp').controller('PokemonController', ['$scope', 'PokemonServi
             .then(
                 function (d) {
                     self.pokemons = d;
-                    console.log('fetchAllPokemons(): self.pokemons ', self.pokemons);
+                    $log.log('fetchAllPokemons(): self.pokemons ', self.pokemons);
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Pokemons');
+                    $log.error('Error while fetching Pokemons');
                 }
             );
     }
@@ -31,7 +32,7 @@ angular.module('myApp').controller('PokemonController', ['$scope', 'PokemonServi
             .then(
                 fetchAllPokemons,
                 function (errResponse) {
-                    console.error('Error while creating Pokemon');
+                    $log.error('Error while creating Pokemon');
                 }
             );
     }
@@ -41,7 +42,7 @@ angular.module('myApp').controller('PokemonController', ['$scope', 'PokemonServi
             .then(
                 fetchAllPokemons,
                 function (errResponse) {
-                    console.error('Error while updating Pokemon');
+                    $log.error('Error while updating Pokemon');
                 }
             );
     }
@@ -51,26 +52,26 @@ angular.module('myApp').controller('PokemonController', ['$scope', 'PokemonServi
             .then(
                 fetchAllPokemons,
                 function (errResponse) {
-                    console.error('Error while deleting Pokemon');
+                    $log.error('Error while deleting Pokemon');
                 }
             );
     }
 
     function submit() {
-        if (self.pokemon.id === null) {
-            console.log('Saving New Pokemon', self.pokemon);
+        if (self.pokemon.id === undefined) {
+            $log.log('Saving New Pokemon', self.pokemon);
             createPokemon(self.pokemon);
         } else {
             updatePokemon(self.pokemon, self.pokemon.id);
-            console.log('Pokemon updated with id ', self.pokemon.id);
+            $log.log('Pokemon updated with id ', self.pokemon.id);
         }
         reset();
     }
 
-    function edit(id) {
-        console.log('id to be edited', id);
+    function edit(pokemon) {
+        $log.log('pokemon.id to be edited', pokemon.id);
         for (var i = 0; i < self.pokemons.length; i++) {
-            if (self.pokemons[i].id === id) {
+            if (self.pokemons[i].id === pokemon.id) {
                 self.pokemon = angular.copy(self.pokemons[i]);
                 break;
             }
@@ -78,7 +79,7 @@ angular.module('myApp').controller('PokemonController', ['$scope', 'PokemonServi
     }
 
     function remove(id) {
-        console.log('id to be deleted', id);
+        $log.log('id to be deleted', id);
         if (self.pokemon.id === id) {//clean form if the pokemon to be deleted is shown there.
             reset();
         }

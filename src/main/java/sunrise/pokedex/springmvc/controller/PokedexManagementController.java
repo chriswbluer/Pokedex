@@ -1,4 +1,4 @@
-package com.pokedex.springmvc.controller;
+package sunrise.pokedex.springmvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +9,6 @@ public class PokedexManagementController {
 
     @RequestMapping(value = "/pokedexmanagement", method = RequestMethod.GET)
     public String getPokedexManagementPage() {
-        return "PokedexManagement";
+        return "pokedexManagement";
     }
 }

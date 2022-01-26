@@ -1,4 +1,4 @@
-package com.pokedex.springmvc.controller;
+package sunrise.pokedex.springmvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,7 @@ public class LandingPageController {
 
 	@RequestMapping(value = "/landingpage", method = RequestMethod.GET)
 	public String getLoginPage() {
-		return "LandingPage";
+		return "landingPage";
 	}
 
 }

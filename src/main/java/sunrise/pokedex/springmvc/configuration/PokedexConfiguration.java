@@ -1,4 +1,4 @@
-package com.pokedex.springmvc.configuration;
+package sunrise.pokedex.springmvc.configuration;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.pokedex.springmvc")
+@ComponentScan(basePackages = "sunrise.pokedex.springmvc")
 public class PokedexConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override

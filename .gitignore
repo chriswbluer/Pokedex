@@ -7,3 +7,5 @@ target/
 .classpath
 
 .vscode/
+
+src/main/java/sunrise/pokedex/springmvc/resources/application.properties

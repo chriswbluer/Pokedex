@@ -1,10 +1,9 @@
-package com.pokedex.springmvc.controller;
-
-import com.pokedex.springmvc.service.PokemonService;
-import com.pokedex.springmvc.model.Pokemon;
+package sunrise.pokedex.springmvc.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,16 +16,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import sunrise.pokedex.springmvc.model.Pokemon;
+import sunrise.pokedex.springmvc.service.PokemonService;
+
 @RestController
 public class PokemonController {
 
     @Autowired
-    PokemonService pokemonService;
+    private PokemonService pokemonService;
+
+    private static Logger logger = LoggerFactory.getLogger(PokemonController.class);
 
     // -------------------Retrieve All Pokemons--
 
     @RequestMapping(value = "/pokemon/", method = RequestMethod.GET)
-    public ResponseEntity<List<Pokemon>> listAllPokemons() {
+    public ResponseEntity<?> listAllPokemons() {
         List<Pokemon> pokemons = pokemonService.findAllPokemons();
         if (pokemons.isEmpty()) {
             return new ResponseEntity<List<Pokemon>>(HttpStatus.NO_CONTENT);
@@ -37,12 +41,13 @@ public class PokemonController {
     // -------------------Retrieve Single Pokemon--
 
     @RequestMapping(value = "/pokemon/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pokemon> getPokemon(@PathVariable("id") long id) {
-        System.out.println("Fetching pokemon with id " + id);
+    public ResponseEntity<?> getPokemon(@PathVariable("id") Long id) {
+        
+        logger.debug("Fetching pokemon with id " + id);
         Pokemon pokemon = pokemonService.findById(id);
         if (pokemon == null) {
-            System.out.println("Pokemon with id " + id + " not found");
-            return new ResponseEntity<Pokemon>(HttpStatus.NOT_FOUND);
+            logger.debug("Pokemon with id " + id + " not found");
+            return new ResponseEntity<Pokemon>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<Pokemon>(pokemon, HttpStatus.OK);
     }
@@ -50,11 +55,11 @@ public class PokemonController {
     // -------------------Create a Pokemon--
 
     @RequestMapping(value = "/pokemon/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createPokemon(@RequestBody Pokemon pokemon, UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating Pokemon " + pokemon.getName());
+    public ResponseEntity<?> createPokemon(@RequestBody Pokemon pokemon, UriComponentsBuilder ucBuilder) {
+        logger.debug("Creating Pokemon " + pokemon.getName());
 
         if (pokemonService.isPokemonExist(pokemon)) {
-            System.out.println("A pokemon with name " + pokemon.getName() + " already exists");
+            logger.debug("A pokemon with name " + pokemon.getName() + " already exists");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
 
@@ -68,14 +73,14 @@ public class PokemonController {
     // ------------------- Update a Pokemon--
 
     @RequestMapping(value = "/pokemon/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Pokemon> updatePokemon(@PathVariable("id") long id, @RequestBody Pokemon pokemon) {
-        System.out.println("Updating pokemon " + id);
+    public ResponseEntity<?> updatePokemon(@PathVariable("id") Long id, @RequestBody Pokemon pokemon) {
+        logger.debug("Updating pokemon " + id);
 
         Pokemon currentPokemon = pokemonService.findById(id);
 
         if (currentPokemon == null) {
-            System.out.println("Pokemon with id " + id + " not found");
-            return new ResponseEntity<Pokemon>(HttpStatus.NOT_FOUND);
+            logger.debug("Pokemon with id " + id + " not found");
+            return new ResponseEntity<Pokemon>(HttpStatus.NO_CONTENT);
         }
 
         currentPokemon.setName(pokemon.getName());
@@ -89,13 +94,13 @@ public class PokemonController {
     // ------------------- Delete a Pokemon--
 
     @RequestMapping(value = "/pokemon/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Pokemon> deletePokemon(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Pokemon with id " + id);
+    public ResponseEntity<?> deletePokemon(@PathVariable("id") Long id) {
+        logger.debug("Fetching & Deleting Pokemon with id " + id);
 
         Pokemon pokemon = pokemonService.findById(id);
         if (pokemon == null) {
-            System.out.println("Unable to delete. Pokemon with id " + id + " not found");
-            return new ResponseEntity<Pokemon>(HttpStatus.NOT_FOUND);
+            logger.debug("Unable to delete. Pokemon with id " + id + " not found");
+            return new ResponseEntity<Pokemon>(HttpStatus.NO_CONTENT);
         }
 
         pokemonService.deletePokemonById(id);
@@ -105,8 +110,8 @@ public class PokemonController {
     // ------------------- Delete All Pokemons--
 
     @RequestMapping(value = "/pokemon/", method = RequestMethod.DELETE)
-    public ResponseEntity<Pokemon> deleteAllPokemons() {
-        System.out.println("Deleting All Pokemons");
+    public ResponseEntity<?> deleteAllPokemons() {
+        logger.debug("Deleting All Pokemons");
 
         pokemonService.deleteAllPokemons();
         return new ResponseEntity<Pokemon>(HttpStatus.NO_CONTENT);

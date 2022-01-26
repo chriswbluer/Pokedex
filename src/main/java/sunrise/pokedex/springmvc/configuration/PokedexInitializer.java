@@ -1,4 +1,4 @@
-package com.pokedex.springmvc.configuration;
+package sunrise.pokedex.springmvc.configuration;
 
 import javax.servlet.Filter;
 
@@ -23,7 +23,7 @@ public class PokedexInitializer extends AbstractAnnotationConfigDispatcherServle
 
     @Override
     protected Filter[] getServletFilters() {
-        Filter[] singleton = { new CORSFilter() };
+        Filter[] singleton = { };
         return singleton;
     }
 
