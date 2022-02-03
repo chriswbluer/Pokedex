@@ -1,43 +1,32 @@
-package sunrise.pokedex.springmvc.model;
+package sunrise.pokedex.springmvc.view;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import sunrise.pokedex.springmvc.model.Pokemon;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "user")
-public class User implements Serializable {
+public class UserViewImpl implements UserView {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty("id")
 	private Long id;
 
-	@Column(name = "USERNAME")
+	@JsonProperty("username")
 	private String username;
 
-	@Column(name = "ADDRESS")
+	@JsonProperty("address")
 	private String address;
 
-	@Column(name = "EMAIL")
+	@JsonProperty("email")
 	private String email;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pokemonOwner", cascade = CascadeType.ALL, orphanRemoval = false)
+	@JsonProperty("pokemons")
 	private List<Pokemon> pokemons;
 
-	public User() {
+	public UserViewImpl() {
 	}
 
-	public User(Long id, String username, String address, String email, List<Pokemon> pokemons) {
+	public UserViewImpl(Long id, String username, String address, String email, List<Pokemon> pokemons) {
 		this.id = id;
 		this.username = username;
 		this.address = address;

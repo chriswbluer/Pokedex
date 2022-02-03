@@ -1,11 +1,11 @@
-package sunrise.pokedex.springmvc.service;
+package sunrise.pokedex.springmvc.dao;
 
 import java.util.List;
 
 import sunrise.pokedex.springmvc.model.Pokemon;
 
-public interface PokemonService {
-
+public interface PokemonDao {
+    
     Pokemon findById(Long id);
 	
 	Pokemon findByName(String name);
@@ -19,7 +19,7 @@ public interface PokemonService {
 	List<Pokemon> findAllPokemons(); 
 	
 	List<Pokemon> deleteAllPokemons();
-	
+
 	Boolean isPokemonExist(Pokemon pokemon);
     
 }

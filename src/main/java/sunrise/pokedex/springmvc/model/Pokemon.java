@@ -2,24 +2,53 @@ package sunrise.pokedex.springmvc.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
+@Table(name = "pokemon")
 public class Pokemon {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "ATTACK")
     private Integer attack;
 
+    @Column(name = "DEFENSE")
     private Integer defense;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "POKEMON_OWNER", referencedColumnName = "USERNAME")
+    @JsonBackReference
+    private User pokemonOwner;
 
     public Pokemon() {
     }
 
-    public Pokemon(Long id, String name, Integer attack, Integer defense) {
+    public Pokemon(Long id, String name, Integer attack, Integer defense, User pokemonOwner) {
         this.id = id;
         this.name = name;
         this.attack = attack;
         this.defense = defense;
+        this.pokemonOwner = pokemonOwner;
     }
 
     public Long getId() {
@@ -54,28 +83,23 @@ public class Pokemon {
         this.defense = defense;
     }
 
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Pokemon)) {
-            return false;
-        }
-        Pokemon pokemon = (Pokemon) o;
-        return Objects.equals(id, pokemon.id) && Objects.equals(name, pokemon.name) && Objects.equals(attack, pokemon.attack) && Objects.equals(defense, pokemon.defense);
+    public User getPokemonOwner() {
+        return this.pokemonOwner;
     }
 
-    public int hashCode() {
-        return Objects.hash(id, name, attack, defense);
+    public void setPokemonOwner(User pokemonOwner) {
+        this.pokemonOwner = pokemonOwner;
     }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + id + "'" +
-            ", name='" + name + "'" +
-            ", attack='" + attack + "'" +
-            ", defense='" + defense + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", name='" + getName() + "'" +
+                ", attack='" + getAttack() + "'" +
+                ", defense='" + getDefense() + "'" +
+                ", pokemonOwner='" + getPokemonOwner() + "'" +
+                "}";
     }
 
 }
