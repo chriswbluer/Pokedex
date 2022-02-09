@@ -58,8 +58,8 @@ angular.module('myApp').controller('PokemonController', ['$scope', '$log', 'Poke
     }
 
     function submit() {
-        if (self.pokemon.id === undefined) {
-            $log.log('Saving New Pokemon', self.pokemon);
+        if (self.pokemon.id === undefined || self.pokemon.id === null) {
+            $log.log('Saving New Pokemon', self.pokemon, self.pokemon.id);
             createPokemon(self.pokemon);
         } else {
             updatePokemon(self.pokemon, self.pokemon.id);

@@ -1,12 +1,12 @@
-package sunrise.pokedex.springmvc.service;
+package sunrise.pokedex.springmvc.dao;
 
 import java.util.List;
 
 import sunrise.pokedex.springmvc.model.User;
 
-public interface UserService {
+public interface UserDao {
 
-	User findById(Long id);
+    User findById(Long id);
 
 	User findByUsername(String username);
 
@@ -21,5 +21,5 @@ public interface UserService {
 	List<User> deleteAllUsers();
 
 	public Boolean isUserExist(User user);
-
+    
 }
