@@ -1,5 +1,6 @@
 package sunrise.pokedex.springmvc.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -80,7 +81,7 @@ public class PokemonManagerImpl implements PokemonManager {
         try {
             restTemplate.delete(providerUrl + id);
         } catch (Exception e) {
-            System.out.println("Something went wrong. Error: " + e);
+            throw new Exception("Something went wrong. Error: " + e);
         }
         return id;
     }
@@ -102,7 +103,7 @@ public class PokemonManagerImpl implements PokemonManager {
         try {
             restTemplate.delete(providerUrl);
         } catch (Exception e) {
-            System.out.println("Something went wrong. Error: " + e);
+            throw new Exception("Something went wrong. Error: " + e);
         }
         return Collections.emptyList();
     }

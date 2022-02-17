@@ -40,8 +40,8 @@ public class PokemonDaoImpl implements PokemonDao {
             jdbcTemplate.update(
                     "INSERT INTO pokemon (attack, defense, name) VALUES (?, ?, ?)",
                     new Object[] { pokemon.getAttack(), pokemon.getDefense(), pokemon.getName() });
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            throw new SQLException("Something went wrong. Error: " + e);
         }
         return pokemon;
     }
@@ -53,8 +53,8 @@ public class PokemonDaoImpl implements PokemonDao {
                     new Object[] { pokemon.getAttack(), pokemon.getDefense(), pokemon.getName(),
                             pokemon.getPokemonOwner(),
                             pokemon.getId() });
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (SQLException e) {
+            throw new SQLException("Something went wrong. Error: " + e);
         }
         Pokemon resultingPokemon = pokemon;
         return resultingPokemon;

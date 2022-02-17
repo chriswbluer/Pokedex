@@ -77,8 +77,8 @@ public class UserManagerImpl implements UserManager {
     public Long deleteUserById(Long id) {
         try {
             restTemplate.delete(providerUrl + id);
-        } catch (Exception e) {
-            System.out.println("Something went wrong. Error: " + e);
+        } catch (SQLException e) {
+            throw new SQLException("Something went wrong. Error: " + e);
         }
         return id;
     }
@@ -99,8 +99,8 @@ public class UserManagerImpl implements UserManager {
     public List<User> deleteAllUsers() {
         try {
             restTemplate.delete(providerUrl);
-        } catch (Exception e) {
-            System.out.println("Something went wrong. Error: " + e);
+        } catch (SQLException e) {
+            throw new SQLException("Something went wrong. Error: " + e);
         }
         return Collections.emptyList();
     }
