@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "sunrise.pokedex.springmvc" })
+@ComponentScan({ "sunrise.pokedex.springboot" })
 @PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
  
@@ -36,7 +36,7 @@ public class HibernateConfiguration {
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "sunrise.pokedex.springmvc.model" }); 
+        sessionFactory.setPackagesToScan(new String[] { "sunrise.pokedex.springboot.model" }); 
         sessionFactory.setHibernateProperties(hibernateProperties());
         try {
         	sessionFactory.afterPropertiesSet();

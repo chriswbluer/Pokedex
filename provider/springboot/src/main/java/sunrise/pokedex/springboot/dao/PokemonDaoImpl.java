@@ -27,10 +27,6 @@ public class PokemonDaoImpl implements PokemonDao {
     private JdbcTemplate jdbcTemplate;
 
     public Pokemon findById(Long id) {
-        // return hibernateTemplate.get(Pokemon.class, id);
-        // String hql = "FROM pokemon p WHERE p.id = :id"; // HQL Query
-        // Query query = sessionFactory.openSession().createQuery(hql);
-        // query.setParameter("id", id);
         return jdbcTemplate.queryForObject("SELECT * FROM pokemon WHERE id=?",
                 new BeanPropertyRowMapper<Pokemon>(Pokemon.class), id);
     }
@@ -40,7 +36,6 @@ public class PokemonDaoImpl implements PokemonDao {
     }
 
     public Pokemon savePokemon(Pokemon pokemon) {
-        // TODO: Rewrite just about all MySQL quieries with
         try {
             jdbcTemplate.update(
                     "INSERT INTO pokemon (attack, defense, name) VALUES (?, ?, ?)",
@@ -75,7 +70,6 @@ public class PokemonDaoImpl implements PokemonDao {
     }
 
     public List<Pokemon> deleteAllPokemons() {
-        // TODO: Maybe return something else
         return jdbcTemplate.query("DELETE FROM Pokemon", new BeanPropertyRowMapper<Pokemon>(Pokemon.class));
     }
 
