@@ -42,8 +42,8 @@ public class PokemonController {
 
     @RequestMapping(value = "/pokemon/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPokemon(@PathVariable("id") Long id) {
-
         logger.debug("Fetching pokemon with id " + id);
+
         PokemonViewImpl pokemon = pokemonManager.findById(id);
         if (pokemon == null) {
             logger.debug("Pokemon with id " + id + " not found");
@@ -65,8 +65,6 @@ public class PokemonController {
 
         PokemonViewImpl pokemonViewImpl = pokemonManager.savePokemon(pokemon);
 
-        // HttpHeaders headers = new HttpHeaders();
-        // headers.setLocation(ucBuilder.path("/pokemon/{id}").buildAndExpand(pokemon.getId()).toUri());
         return new ResponseEntity<PokemonViewImpl>(pokemonViewImpl, HttpStatus.CREATED);
     }
 
@@ -112,7 +110,6 @@ public class PokemonController {
     @RequestMapping(value = "/pokemon/", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteAllPokemons() {
         logger.debug("Deleting All Pokemons");
-
         pokemonManager.deleteAllPokemons();
         return new ResponseEntity<Pokemon>(HttpStatus.NO_CONTENT);
     }
