@@ -16,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 
 import sunrise.pokedex.springmvc.model.User;
 import sunrise.pokedex.springmvc.view.UserViewImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class UserManagerImpl implements UserManager {
@@ -24,6 +26,8 @@ public class UserManagerImpl implements UserManager {
     private RestTemplate restTemplate;
 
     private String providerUrl = "http://localhost:8081/user/";
+
+    private static Logger logger = LoggerFactory.getLogger(UserManagerImpl.class);
 
     public UserViewImpl convertToView(User user) {
         UserViewImpl userView = new UserViewImpl();
@@ -77,8 +81,8 @@ public class UserManagerImpl implements UserManager {
     public Long deleteUserById(Long id) {
         try {
             restTemplate.delete(providerUrl + id);
-        } catch (SQLException e) {
-            throw new SQLException("Something went wrong. Error: " + e);
+        } catch (Exception e) {
+            logger.debug("Something went wrong. Error: " + e);
         }
         return id;
     }
@@ -99,8 +103,8 @@ public class UserManagerImpl implements UserManager {
     public List<User> deleteAllUsers() {
         try {
             restTemplate.delete(providerUrl);
-        } catch (SQLException e) {
-            throw new SQLException("Something went wrong. Error: " + e);
+        } catch (Exception e) {
+            logger.debug("Something went wrong. Error: " + e);
         }
         return Collections.emptyList();
     }

@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import sunrise.pokedex.springboot.model.Pokemon;
 
@@ -25,6 +27,8 @@ public class PokemonDaoImpl implements PokemonDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private static Logger logger = LoggerFactory.getLogger(PokemonDaoImpl.class);
 
     public Pokemon findById(Long id) {
         return jdbcTemplate.queryForObject("SELECT * FROM pokemon WHERE id=?",
@@ -40,8 +44,8 @@ public class PokemonDaoImpl implements PokemonDao {
             jdbcTemplate.update(
                     "INSERT INTO pokemon (attack, defense, name) VALUES (?, ?, ?)",
                     new Object[] { pokemon.getAttack(), pokemon.getDefense(), pokemon.getName() });
-        } catch (SQLException e) {
-            throw new SQLException("Something went wrong. Error: " + e);
+        } catch (Exception e) {
+            logger.debug("Something went wrong. Error: " + e);
         }
         return pokemon;
     }
@@ -53,8 +57,8 @@ public class PokemonDaoImpl implements PokemonDao {
                     new Object[] { pokemon.getAttack(), pokemon.getDefense(), pokemon.getName(),
                             pokemon.getPokemonOwner(),
                             pokemon.getId() });
-        } catch (SQLException e) {
-            throw new SQLException("Something went wrong. Error: " + e);
+        } catch (Exception e) {
+            logger.debug("Something went wrong. Error: " + e);
         }
         Pokemon resultingPokemon = pokemon;
         return resultingPokemon;

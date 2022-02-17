@@ -19,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 
 import sunrise.pokedex.springmvc.view.PokemonViewImpl;
 import sunrise.pokedex.springmvc.model.Pokemon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class PokemonManagerImpl implements PokemonManager {
@@ -27,6 +29,8 @@ public class PokemonManagerImpl implements PokemonManager {
     private RestTemplate restTemplate;
 
     private String providerUrl = "http://localhost:8081/pokemon/";
+
+    private static Logger logger = LoggerFactory.getLogger(PokemonManagerImpl.class);
 
     public PokemonViewImpl convertToView(Pokemon pokemon) {
         PokemonViewImpl pokemonView = new PokemonViewImpl();
@@ -81,7 +85,7 @@ public class PokemonManagerImpl implements PokemonManager {
         try {
             restTemplate.delete(providerUrl + id);
         } catch (Exception e) {
-            throw new Exception("Something went wrong. Error: " + e);
+            logger.debug("Something went wrong. Error: " + e);
         }
         return id;
     }
@@ -103,7 +107,7 @@ public class PokemonManagerImpl implements PokemonManager {
         try {
             restTemplate.delete(providerUrl);
         } catch (Exception e) {
-            throw new Exception("Something went wrong. Error: " + e);
+            logger.debug("Something went wrong. Error: " + e);
         }
         return Collections.emptyList();
     }
