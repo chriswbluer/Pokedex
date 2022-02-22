@@ -21,14 +21,18 @@ import sunrise.pokedex.springmvc.view.PokemonViewImpl;
 import sunrise.pokedex.springmvc.model.Pokemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
+@PropertySource(value = { "classpath:application.properties" })
 public class PokemonManagerImpl implements PokemonManager {
 
     @Autowired
     private RestTemplate restTemplate;
 
-    private String providerUrl = "http://localhost:8081/pokemon/";
+    @Value("${pokedex.pokemon.provider.url}")
+    private String providerUrl;
 
     private static Logger logger = LoggerFactory.getLogger(PokemonManagerImpl.class);
 
@@ -61,6 +65,7 @@ public class PokemonManagerImpl implements PokemonManager {
     @Override
     public PokemonViewImpl savePokemon(PokemonViewImpl pokemonViewImpl) {
         Pokemon pokemonImpl = convertToImpl(pokemonViewImpl);
+        // TODO: restTemplate.exchange is better. More configuration options.
         Pokemon restTemplatePokemonImpl = restTemplate
                 .postForEntity(providerUrl, new HttpEntity(pokemonImpl), Pokemon.class).getBody();
         PokemonViewImpl pokemonView = convertToView(restTemplatePokemonImpl);
@@ -92,6 +97,7 @@ public class PokemonManagerImpl implements PokemonManager {
 
     @Override
     public List<PokemonViewImpl> findAllPokemons() {
+        // TODO: restTemplate.exchange is better. More configuration options.
         Pokemon[] pokemonList = restTemplate.getForEntity(providerUrl, Pokemon[].class).getBody();
         List<PokemonViewImpl> pokemonViewList = new ArrayList<PokemonViewImpl>();
         for (Pokemon pokemon : pokemonList) {
@@ -115,7 +121,7 @@ public class PokemonManagerImpl implements PokemonManager {
     @Override
     public Boolean isPokemonExist(PokemonViewImpl pokemon) {
         Pokemon pokemonImpl = convertToImpl(pokemon);
-		return pokemonImpl != null && pokemonImpl.getId() != null && findById(pokemonImpl.getId()) != null;
+        return pokemonImpl != null && pokemonImpl.getId() != null && findById(pokemonImpl.getId()) != null;
     }
-    
+
 }

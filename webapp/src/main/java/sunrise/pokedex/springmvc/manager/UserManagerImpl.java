@@ -18,14 +18,18 @@ import sunrise.pokedex.springmvc.model.User;
 import sunrise.pokedex.springmvc.view.UserViewImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
+@PropertySource(value = { "classpath:application.properties" })
 public class UserManagerImpl implements UserManager {
 
     @Autowired
     private RestTemplate restTemplate;
 
-    private String providerUrl = "http://localhost:8081/user/";
+    @Value("${pokedex.user.provider.url}")
+    private String providerUrl;
 
     private static Logger logger = LoggerFactory.getLogger(UserManagerImpl.class);
 
@@ -58,6 +62,7 @@ public class UserManagerImpl implements UserManager {
     @Override
     public UserViewImpl saveUser(UserViewImpl user) {
         User userImpl = convertToImpl(user);
+        // TODO: restTemplate.exchange is better. More configuration options.
         User serviceUserImpl = restTemplate.postForEntity(providerUrl, new HttpEntity(userImpl), User.class)
                 .getBody();
         UserViewImpl userView = convertToView(serviceUserImpl);
@@ -89,6 +94,7 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public List<UserViewImpl> findAllUsers() {
+        // TODO: restTemplate.exchange is better. More configuration options.
         User[] userList = restTemplate.getForEntity(providerUrl, User[].class).getBody();
         List<UserViewImpl> userViewList = new ArrayList<UserViewImpl>();
         for (User user : userList) {

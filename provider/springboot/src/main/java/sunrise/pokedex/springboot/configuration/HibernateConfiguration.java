@@ -1,4 +1,4 @@
-package sunrise.pokedex.springboot.config;
+package sunrise.pokedex.springboot.configuration;
 
 import java.io.IOException;
 import java.util.Properties;
