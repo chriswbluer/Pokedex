@@ -1,6 +1,7 @@
 package sunrise.pokedex.springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,11 @@ public class PokemonServiceImpl implements PokemonService {
 	private PokemonDao pokemonDao;
 
 	public Pokemon findById(Long id) {
-		return pokemonDao.findById(id);
+		if (Optional.ofNullable(id).isPresent()) {
+			return pokemonDao.findById(id);
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	public Pokemon findByName(String name) {
@@ -24,7 +29,11 @@ public class PokemonServiceImpl implements PokemonService {
 	}
 
 	public Pokemon savePokemon(Pokemon pokemon) {
-		return pokemonDao.savePokemon(pokemon);
+		if (pokemon != null) {
+			return pokemonDao.savePokemon(pokemon);	
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	public Pokemon updatePokemon(Pokemon pokemon) {
@@ -32,7 +41,11 @@ public class PokemonServiceImpl implements PokemonService {
 	}
 
 	public Long deletePokemonById(Long id) {
-		return pokemonDao.deletePokemonById(id);
+		if (Optional.ofNullable(id).isPresent()) {
+			return pokemonDao.deletePokemonById(id);
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	public List<Pokemon> findAllPokemons() {

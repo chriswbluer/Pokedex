@@ -80,7 +80,7 @@
 					<label for="inputPassword" class="sr-only">Password</label>
 					<input type="password" name="password" id="password" class="form-control" placeholder="Password"
 						required="">
-					<button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign in</button>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" id="loginPageSubmitButton">Sign in</button>
 					<div style="background-color: white; color: red">${error}</div>
 				</form:form>
 			</main>
