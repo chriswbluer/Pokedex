@@ -3,6 +3,7 @@ package sunrise.pokedex.springboot.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,11 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	public User findById(Long id) {
-		return userDao.findById(id);
+		if (Optional.ofNullable(id).isPresent()) {
+			return userDao.findById(id);
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	public User findByUsername(String username) {
@@ -28,7 +33,11 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public User saveUser(User user) {
-		return userDao.saveUser(user);
+		if (user != null) {
+			return userDao.saveUser(user);	
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	@Transactional
@@ -38,7 +47,11 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public Long deleteUserById(Long id) {
-		return userDao.deleteUserById(id);
+		if (Optional.ofNullable(id).isPresent()) {
+			return userDao.deleteUserById(id);
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	public List<User> findAllUsers() {
