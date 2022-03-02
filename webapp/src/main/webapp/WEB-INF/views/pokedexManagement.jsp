@@ -135,14 +135,14 @@
                                 <tbody>
                                     <tr ng-repeat="u in pokemonController.pokemons">
                                         <td><span ng-bind="u.id"></span></td>
-                                        <td><span ng-bind="u.name"></span></td>
-                                        <td><span ng-bind="u.attack"></span></td>
-                                        <td><span ng-bind="u.defense"></span></td>
+                                        <td><span ng-bind="u.name" id="{{u.name}}"></span></td>
+                                        <td><span ng-bind="u.attack" id="{{u.name + u.attack}}"></span></td>
+                                        <td><span ng-bind="u.defense" id="{{u.name + u.defense}}"></span></td>
                                         <td>
                                             <button type="button" ng-click="pokemonController.edit(u)"
-                                                class="btn btn-success custom-width" id="editButton{{u.id}}">Edit</button>
+                                                class="btn btn-success custom-width" id="editButton{{u.name}}">Edit</button>
                                             <button type="button" ng-click="pokemonController.remove(u.id)"
-                                                class="btn btn-danger custom-width" id="removeButton{{u.id}}">Remove</button>
+                                                class="btn btn-danger custom-width" id="removeButton{{u.name}}">Remove</button>
                                         </td>
                                     </tr>
                                 </tbody>
