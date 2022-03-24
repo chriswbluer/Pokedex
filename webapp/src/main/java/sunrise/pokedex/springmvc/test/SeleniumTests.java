@@ -72,10 +72,10 @@ public class SeleniumTests {
     }
 
     public void doLogin() {
-        seleniumConfig.getDriver().navigate().to("http://localhost:8080");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("userName")));
-        username = seleniumConfig.getDriver().findElement(By.id("userName"));
-        password = seleniumConfig.getDriver().findElement(By.id("password"));
+        seleniumConfig.getDriver().navigate().to("http://localhost:4200");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("inputUsername")));
+        username = seleniumConfig.getDriver().findElement(By.id("inputUsername"));
+        password = seleniumConfig.getDriver().findElement(By.id("inputPassword"));
         loginBtn = seleniumConfig.getDriver().findElement(By.id("loginPageSubmitButton"));
         username.sendKeys("chris");
         password.sendKeys("chris");

@@ -23,7 +23,7 @@ public class PokedexInitializer extends AbstractAnnotationConfigDispatcherServle
 
     @Override
     protected Filter[] getServletFilters() {
-        Filter[] singleton = { };
+        Filter[] singleton = { new CORSFilter() };
         return singleton;
     }
 
