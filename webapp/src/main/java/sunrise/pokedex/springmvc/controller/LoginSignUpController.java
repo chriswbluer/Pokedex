@@ -30,7 +30,6 @@ public class LoginSignUpController {
 		if (user.getUserName().equals("chris")) {
 			return new ResponseEntity<>(user.getUserName(), HttpStatus.OK);
 		} else {
-			System.out.println("Error - username: " + user.getUserName());
 			return new ResponseEntity<>(user.getUserName(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

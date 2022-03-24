@@ -16,7 +16,6 @@
             class="form-horizontal"
             (ngSubmit)="onSubmit()"
           >
-            <!-- (ngSubmit)="onSubmit()" -->
             <input type="hidden" formControlName="id" name="id" />
             <div class="row">
               <div class="form-group col-md-12">
@@ -34,13 +33,6 @@
                     ng-minlength="3"
                     id="pokemonNameInput"
                   />
-                  <!-- <div class="has-error" ng-show="myForm.$dirty">
-                                      <span ng-show="myForm.name.$error.required">This is a required
-                                          field</span>
-                                      <span ng-show="myForm.name.$error.minlength">Minimum length required is
-                                          3</span>
-                                      <span ng-show="myForm.name.$invalid">This field is invalid </span>
-                                  </div> -->
                 </div>
               </div>
             </div>
@@ -76,11 +68,6 @@
                     placeholder="Enter the Pokemons Defense"
                     id="pokemonDefenseInput"
                   />
-                  <!-- <div class="has-error" ng-show="myForm.$dirty">
-                                      <span ng-show="myForm.defense.$error.required">This is a required
-                                          field</span>
-                                      <span ng-show="myForm.defense.$invalid">This field is invalid </span>
-                                  </div> -->
                 </div>
               </div>
             </div>
@@ -104,12 +91,6 @@
                     id="addButton"
                     (click)="onUpdate(pokemonForm.value)"
                   />
-                  <!-- [disabled]="!pokemonForm.valid" -->
-                  <!-- <input
-                    type="submit"
-                    class="btn btn-primary btn-sm"
-                    id="addButton"
-                  /> -->
                   <button
                     type="button"
                     class="btn btn-warning btn-sm"
