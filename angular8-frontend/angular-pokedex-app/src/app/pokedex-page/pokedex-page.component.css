@@ -1,0 +1,29 @@
+.name.ng-valid {
+  background-color: lightgreen;
+}
+
+.name.ng-dirty.ng-invalid-required {
+  background-color: red;
+}
+
+.name.ng-dirty.ng-invalid-minlength {
+  background-color: yellow;
+}
+
+.defense.ng-valid {
+  background-color: lightgreen;
+}
+
+.defense.ng-dirty.ng-invalid-required {
+  background-color: red;
+}
+
+.defense.ng-dirty.ng-invalid-defense {
+  background-color: yellow;
+}
+.btn {
+  margin-right: 10px;
+}
+.body {
+  text-align: unset !important;
+}
