@@ -1,0 +1,167 @@
+<body ng-app="myApp" class="ng-cloak bg-light">
+  <div
+    class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow"
+  >
+    <h5 class="my-0 mr-md-auto font-weight-normal">Add Pokemon to Pokedex</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" href="/home" id="homeLink">Home</a>
+    </nav>
+  </div>
+  <main>
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="formcontainer">
+          <form
+            [formGroup]="pokemonForm"
+            class="form-horizontal"
+            (ngSubmit)="onSubmit()"
+          >
+            <input type="hidden" formControlName="id" name="id" />
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label class="col-md-2 control-lable" for="name"
+                  >Pokemon Name</label
+                >
+                <div class="col-md-6 offset-md-3">
+                  <input
+                    type="text"
+                    formControlName="name"
+                    name="name"
+                    class="name form-control input-sm"
+                    placeholder="Enter Pokemons Name"
+                    required
+                    ng-minlength="3"
+                    id="pokemonNameInput"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label class="col-md-2 control-lable" for="attack"
+                  >Attack</label
+                >
+                <div class="col-md-6 offset-md-3">
+                  <input
+                    type="number"
+                    formControlName="attack"
+                    class="form-control input-sm"
+                    placeholder="Enter the Pokemons Attack. [This field is validation free]"
+                    id="pokemonAttackInput"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label class="col-md-2 control-lable" for="defense"
+                  >Defense</label
+                >
+                <div class="col-md-6 offset-md-3">
+                  <input
+                    type="number"
+                    formControlName="defense"
+                    name="defense"
+                    class="defense form-control input-sm"
+                    placeholder="Enter the Pokemons Defense"
+                    id="pokemonDefenseInput"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-12">
+                <div class="col-md-6 offset-md-3">
+                  <input
+                    *ngIf="!pokemonForm.value.id"
+                    type="submit"
+                    value="Add"
+                    class="btn btn-primary btn-sm"
+                    id="addButton"
+                    (click)="onAdd(pokemonForm.value)"
+                  />
+                  <input
+                    *ngIf="pokemonForm.value.id"
+                    type="submit"
+                    value="Update"
+                    class="btn btn-primary btn-sm"
+                    id="addButton"
+                    (click)="onUpdate(pokemonForm.value)"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-warning btn-sm"
+                    id="resetButton"
+                    (click)="onReset()"
+                  >
+                    Reset Form
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <span class="lead">Pokedex of Pokemon </span>
+        </div>
+        <div class="tablecontainer">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Attack</th>
+                <th>Defense</th>
+                <th width="20%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pokemon of pokemonArray">
+                <td>
+                  <span>{{ pokemon.id }}</span>
+                </td>
+                <td>
+                  <span id="{{ pokemon.name }}">{{ pokemon.name }}</span>
+                </td>
+                <td>
+                  <span id="{{ pokemon.name + pokemon.attack }}">{{
+                    pokemon.attack
+                  }}</span>
+                </td>
+                <td>
+                  <span id="{{ pokemon.name + pokemon.defense }}">{{
+                    pokemon.defense
+                  }}</span>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="onEdit(pokemon)"
+                    class="btn btn-success custom-width"
+                    id="editButton{{ pokemon.name }}"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    (click)="onRemove(pokemon.id)"
+                    class="btn btn-danger custom-width"
+                    id="removeButton{{ pokemon.name }}"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>

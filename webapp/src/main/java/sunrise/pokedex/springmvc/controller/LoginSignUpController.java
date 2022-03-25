@@ -1,13 +1,15 @@
 package sunrise.pokedex.springmvc.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import sunrise.pokedex.springmvc.model.Login;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import javax.validation.Valid;
 
 @Controller
 public class LoginSignUpController {
@@ -22,14 +24,13 @@ public class LoginSignUpController {
 		return "signUpPage";
 	}
 
+	// This needs to be properly implemented with security measures.
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String submitLogin(Model model, @ModelAttribute("login") Login login) {
-		if (login != null && login.getUserName() != null & login.getPassword() != null) {
-			model.addAttribute("user", login.getUserName());
-			return "landingPage";
+	public ResponseEntity<?> submitLogin(@Valid @RequestBody Login user) {
+		if (user.getUserName().equals("chris")) {
+			return new ResponseEntity<>(user.getUserName(), HttpStatus.OK);
 		} else {
-			model.addAttribute("error", "Try again.");
-			return "loginPage";
+			return new ResponseEntity<>(user.getUserName(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
